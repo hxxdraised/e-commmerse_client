@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import {Layout, Menu} from 'antd';
 import styled from 'styled-components'
+import {UserOutlined, InboxOutlined, ShoppingCartOutlined} from '@ant-design/icons'
 
 const Header = Layout.Header
 
@@ -29,9 +30,9 @@ export default function PageHeader() {
                 </Link>
             </LogoWrapper>
             <HeaderMenu>
-                <Menu.Item>Аккаунт</Menu.Item>
-                <Menu.Item>Заказы</Menu.Item>
-                <Menu.Item>Корзина</Menu.Item>
+                <Menu.Item><UserOutlined /></Menu.Item>
+                <Menu.Item><InboxOutlined /></Menu.Item>
+                <Menu.Item><ShoppingCartOutlined/></Menu.Item>
             </HeaderMenu>
         </Header>
     )

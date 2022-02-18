@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import axios from "axios";
 import Link from "next/link"
-import {Breadcrumb, Layout, Typography, Row, Col} from "antd";
+import {Layout, Typography, Row, Col} from "antd";
 import {useEffect, useState} from 'react';
 import styled from "styled-components";
 import SiteLayoutContent from '../components/SiteLayoutContent'
@@ -32,13 +32,13 @@ export default function Home() {
     return (
         <div>
             <Head>
-                <title>Каталог товаров</title>
+                <title>All products</title>
                 <meta name="description" content=""/>
                 <link rel="icon" href=""/>
             </Head>
-            <Breadcrumbs path={[{name: "Каталог", href: ""}]}/>
+            <Breadcrumbs path={[{name: "All products", href: ""}]}/>
             <SiteLayoutContent>
-                <Title level={2}>Каталог товаров</Title>
+                <Title level={2}>All products</Title>
                 <ProductsWrapper>
                     <Row justify="start">
                         {products.map(product => (
@@ -47,9 +47,9 @@ export default function Home() {
                                     <a>
                                         <ProductCard
                                             productName={product.name}
-                                            image={product.image}
+                                            image={product.preview_image}
                                             price={product.price}
-                                            oldPrice={product.oldPrice}/>
+                                            oldPrice={product.old_price}/>
                                     </a>
                                 </Link>
                             </Col>

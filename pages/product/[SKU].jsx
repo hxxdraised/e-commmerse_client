@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import axios from "axios";
 import {useEffect, useState} from 'react';
-import {Typography, Row, Col, Button, Divider, Card, Rate} from "antd";
+import {Typography, Row, Col, Button, Divider, Card, Rate, Space} from "antd";
 import styled from "styled-components";
 import {useRouter} from "next/router";
 import SiteLayoutContent from '../../components/SiteLayoutContent'
@@ -9,6 +9,19 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 
 
 const {Title, Text, Paragraph} = Typography
+
+const PriceBlock = styled(Space)`
+    display: flex;
+    margin: 1rem 0;
+  
+`
+
+const Price = styled(Title).attrs({
+    level: 2,
+})`
+  display: inline-block;
+  margin: 0 !important;
+`
 
 export default function ProductPage() {
     let [productInfo, setProductInfo] = useState([])
@@ -40,10 +53,15 @@ export default function ProductPage() {
                     </Col>
                     <Col sm={24} md={11} lg={12} xl={14} style={{padding: "1rem"}}>
                         <Title level={3}>{productInfo.name}</Title>
-                        <Rate disabled/><Text>  | 0 Reviews</Text>
-                        {productInfo.old_price
-                            ? <Title level={2}><Text delete>€ {productInfo.old_price}</Text>  € {productInfo.price}</Title>
-                            : <Title level={2}>{productInfo.price}</Title>}
+                        <Rate disabled/><Text>   |  0 Reviews</Text>
+                        <PriceBlock>
+                            <Price level={2}>€ {productInfo.price}</Price>
+                            {productInfo.old_price
+                                ? <Text delete style={{marginLeft: ".5rem"}}>€ {productInfo.old_price}</Text>
+                                : ""
+                            }
+                        </PriceBlock>
+
                         <Row style={{marginBottom: "1rem"}}>
                             <Col span={14} style={{paddingRight: "1rem"}}>
                                 <Button type="primary" block>Order now</Button>
@@ -73,6 +91,11 @@ export default function ProductPage() {
                 <Title level={3}>Product description</Title>
                 <Paragraph ellipsis={{rows: 3, expandable: true, symbol: 'more'}}>
                     {productInfo.description}
+                </Paragraph>
+                <Divider />
+                <Title level={3}>F.A.Q.</Title>
+                <Paragraph ellipsis={{rows: 3, expandable: true, symbol: 'more'}}>
+                    No questions and answers now
                 </Paragraph>
             </SiteLayoutContent>
 

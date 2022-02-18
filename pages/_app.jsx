@@ -1,4 +1,5 @@
 import {Layout} from 'antd'
+import Link from 'next/link'
 import styled from 'styled-components'
 import PageHeader from "../components/PageHeader";
 
@@ -13,7 +14,9 @@ function MyApp({Component, pageProps}) {
                 <Component {...pageProps} />
             </Content>
             <Footer style={{ textAlign: 'center'}}>
-                Ant Design ©2018 Created by Ant UED
+                My puper ©2022 Created by
+                <Link href="http://t.me/hoodraised_dust"> hxxdraised </Link>
+                with Ant Design
             </Footer>
         </Layout>
     )

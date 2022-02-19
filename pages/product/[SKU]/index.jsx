@@ -1,27 +1,17 @@
 import Head from 'next/head'
+import Router from 'next/router'
 import axios from "axios";
 import {useEffect, useState} from 'react';
 import {Typography, Row, Col, Button, Divider, Card, Rate, Space} from "antd";
 import styled from "styled-components";
 import {useRouter} from "next/router";
-import SiteLayoutContent from '../../components/SiteLayoutContent'
-import Breadcrumbs from "../../components/Breadcrumbs";
+import SiteLayoutContent from '../../../components/SiteLayoutContent'
+import Breadcrumbs from "../../../components/Breadcrumbs";
+import PriceBlock from "../../../components/productPage/PriceBlock"
 
 
 const {Title, Text, Paragraph} = Typography
 
-const PriceBlock = styled(Space)`
-    display: flex;
-    margin: 1rem 0;
-  
-`
-
-const Price = styled(Title).attrs({
-    level: 2,
-})`
-  display: inline-block;
-  margin: 0 !important;
-`
 
 export default function ProductPage() {
     let [productInfo, setProductInfo] = useState([])
@@ -34,7 +24,9 @@ export default function ProductPage() {
             url: 'http://192.168.0.113:8000/api/v1/product/' + router.query['SKU']
         }).then(response => {
             setProductInfo(response.data.products)
-            console.log(response.data.products)
+        }).catch(error => {
+            if (error.response.status === 404)
+                Router.push("/404")
         })
     }, [router.isReady])
     return (
@@ -53,15 +45,8 @@ export default function ProductPage() {
                     </Col>
                     <Col sm={24} md={11} lg={12} xl={14} style={{padding: "1rem"}}>
                         <Title level={3}>{productInfo.name}</Title>
-                        <Rate disabled/><Text>   |  0 Reviews</Text>
-                        <PriceBlock>
-                            <Price level={2}>€ {productInfo.price}</Price>
-                            {productInfo.old_price
-                                ? <Text delete style={{marginLeft: ".5rem"}}>€ {productInfo.old_price}</Text>
-                                : ""
-                            }
-                        </PriceBlock>
-
+                        <Rate disabled/><Text> | 0 Reviews</Text>
+                        <PriceBlock price={productInfo.price} oldPrice={productInfo.old_price}/>
                         <Row style={{marginBottom: "1rem"}}>
                             <Col span={14} style={{paddingRight: "1rem"}}>
                                 <Button type="primary" block>Order now</Button>
@@ -71,7 +56,7 @@ export default function ProductPage() {
                             </Col>
                         </Row>
                         <Text>{productInfo.stock} piece in stock</Text>
-                        <Divider />
+                        <Divider/>
                         <Card>
                             <Text>
                                 <b>Free</b> shipping to all countries<br/>
@@ -87,12 +72,12 @@ export default function ProductPage() {
                         </Card>
                     </Col>
                 </Row>
-                <Divider />
+                <Divider/>
                 <Title level={3}>Product description</Title>
                 <Paragraph ellipsis={{rows: 3, expandable: true, symbol: 'more'}}>
                     {productInfo.description}
                 </Paragraph>
-                <Divider />
+                <Divider/>
                 <Title level={3}>F.A.Q.</Title>
                 <Paragraph ellipsis={{rows: 3, expandable: true, symbol: 'more'}}>
                     No questions and answers now

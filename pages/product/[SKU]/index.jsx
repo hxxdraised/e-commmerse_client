@@ -49,7 +49,10 @@ export default function ProductPage() {
                         <PriceBlock price={productInfo.price} oldPrice={productInfo.old_price}/>
                         <Row style={{marginBottom: "1rem"}}>
                             <Col span={14} style={{paddingRight: "1rem"}}>
-                                <Button type="primary" block>Order now</Button>
+                                <Button type="primary" block
+                                        onClick={() => Router.push("/product/"+productInfo.SKU+"/order")}>
+                                    Order now
+                                </Button>
                             </Col>
                             <Col span={10} style={{paddingRight: "1rem"}}>
                                 <Button block>Add to cart</Button>
